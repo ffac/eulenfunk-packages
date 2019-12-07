@@ -44,9 +44,6 @@ dmesg | grep -q "Kernel bug" && now_reboot "gluon issue #680"
 dmesg | grep "ath" | grep "alloc of size" | grep -q "failed" && now_reboot "ath0 malloc fail"
 dmesg | grep "ksoftirqd" | grep -q "page allcocation failure" && now_reboot "kernel malloc fail"
 
-# too many tunneldigger restarts
-[ "$(ps |grep -c -e tunneldigger\ restart -e tunneldigger-watchdog)" -ge "9" ] && now_reboot "too many Tunneldigger-Restarts"
-
 # br-client without ipv6 in prefix-range
 if [ "$(ip -6 addr show to "$(jsonfilter -i /lib/gluon/site.json -e '$.prefix6')" dev br-client | grep -c inet6)" == "0" ]; then
   now_reboot "br-client without ipv6 in prefix-range (probably none)"
